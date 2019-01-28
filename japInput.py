@@ -23,9 +23,9 @@ class JapInput(QWidget):
         super(JapInput, self).__init__()
         self.ui = ui_japInput.Ui_widget()
         self.ui.setupUi(self)
-        self.ui.lineEdit.setStyleSheet(self.lineEditQss(GRAY, BLUEGREEN))
         self.init_style()
         self.m_move = False
+        self.ui.listWidget.addItem('123')
 
     def lineEditQss(self, normalColor, focusColor):
         str1 = "QLineEdit{border-style:none;padding:4px;border-radius:20px;border:3px solid %s;selection-color:%s;selection-background-color:%s;}" % (
@@ -34,9 +34,17 @@ class JapInput(QWidget):
         str3 = "QLineEdit:disabled{color:%s;}" % (LIGHTGRAY)
         return str1 + str2 + str3
 
+    def listViewQss(self):
+        str1 = "QListWidget{border-radius:20px;border:8px solid red;}"
+        str2 = "QListWidget::Item{border-radius:5px;}"
+        return str1+str2
+
     def init_style(self):
         s = '#widget{background: transparent;}'
         self.setStyleSheet(s)
+        self.ui.lineEdit.setStyleSheet(self.lineEditQss(GRAY, BLUEGREEN))
+        self.ui.listWidget.setStyleSheet(self.listViewQss())
+
 
     @pyqtSlot()
     def on_btnMin_clicked(self):
