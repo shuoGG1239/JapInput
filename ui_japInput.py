@@ -34,6 +34,6 @@ class Ui_widget(object):
     def retranslateUi(self, widget):
         _translate = QtCore.QCoreApplication.translate
         widget.setWindowTitle(_translate("widget", "Form"))
-        self.btnMin.setText(_translate("widget", "A"))
-        self.btnClose.setText(_translate("widget", "B"))
+        self.btnMin.setText(_translate("widget", "+"))
+        self.btnClose.setText(_translate("widget", "×"))
 

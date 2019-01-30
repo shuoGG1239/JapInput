@@ -18,7 +18,3 @@ def init_dict():
     for line in lines:
         hira_kake_dict[line[0]] = line[2]
         kake_hira_dict[line[2]] = line[0]
-
-init_dict()
-print(hira_kake_dict)
-print(kake_hira_dict)
