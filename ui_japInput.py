@@ -8,15 +8,17 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import listWidget
+import lineEdit
 
 class Ui_widget(object):
     def setupUi(self, widget):
         widget.setObjectName("widget")
         widget.resize(382, 307)
-        self.lineEdit = QtWidgets.QLineEdit(widget)
+        self.lineEdit = lineEdit.LineEdit(widget)
         self.lineEdit.setGeometry(QtCore.QRect(10, 40, 321, 41))
         self.lineEdit.setObjectName("lineEdit")
-        self.listWidget = QtWidgets.QListWidget(widget)
+        self.listWidget = listWidget.ListWidget(widget)
         self.listWidget.setGeometry(QtCore.QRect(10, 90, 321, 191))
         self.listWidget.setObjectName("listWidget")
         self.btnMin = QtWidgets.QPushButton(widget)

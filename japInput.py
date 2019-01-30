@@ -1,6 +1,6 @@
 import ui_japInput
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt
+from PyQt5.QtWidgets import QWidget, QListWidget, QListWidgetItem
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QSize
 
 WHITE = "#FFFFFF"
 BLACK = "#000000"
@@ -17,6 +17,7 @@ GRAY = "#999999"
 LIGHTGRAY = "#CCCCCC"
 
 
+
 class JapInput(QWidget):
 
     def __init__(self):
@@ -25,7 +26,6 @@ class JapInput(QWidget):
         self.ui.setupUi(self)
         self.init_style()
         self.m_move = False
-        self.ui.listWidget.addItem('123')
 
     def lineEditQss(self, normalColor, focusColor):
         str1 = "QLineEdit{border-style:none;padding:4px;border-radius:20px;border:3px solid %s;selection-color:%s;selection-background-color:%s;}" % (
@@ -35,7 +35,7 @@ class JapInput(QWidget):
         return str1 + str2 + str3
 
     def listViewQss(self):
-        str1 = "QListWidget{border-radius:20px;border:8px solid red;}"
+        str1 = "QListWidget{border-radius:20px;border:8px solid #33CCCC;}"
         str2 = "QListWidget::Item{border-radius:5px;}"
         return str1+str2
 
@@ -43,16 +43,29 @@ class JapInput(QWidget):
         s = '#widget{background: transparent;}'
         self.setStyleSheet(s)
         self.ui.lineEdit.setStyleSheet(self.lineEditQss(GRAY, BLUEGREEN))
-        self.ui.listWidget.setStyleSheet(self.listViewQss())
 
 
     @pyqtSlot()
     def on_btnMin_clicked(self):
         print('min')
+        newItem = QListWidgetItem()
+        newItem.setSizeHint(QSize(100,50))
+        newItem.setText("123")
+        self.ui.listWidget.addItem(newItem)
 
     @pyqtSlot()
     def on_btnClose_clicked(self):
         self.close()
+
+    @pyqtSlot(QListWidgetItem)
+    def on_listWidget_rowsInserted(self, item):
+        print(444)
+        self.ui.listWidget.resize(self.width(), self.height() + item.height())
+
+    @pyqtSlot(QListWidgetItem)
+    def on_listWidget_itemClicked(self, item):
+        print(123)
+
 
     def mousePressEvent(self, e):
         if e.button() == Qt.LeftButton:
