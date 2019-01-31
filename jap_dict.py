@@ -18,3 +18,13 @@ def init_dict():
     for line in lines:
         hira_kake_dict[line[0]] = line[2]
         kake_hira_dict[line[2]] = line[0]
+
+
+def isJP_word(char):
+    """
+    Unicode:
+        中文：[\u4e00-\u9fa5]
+        日文：[\u0800-\u4e00]
+    """
+    unicode_val = ord(char)
+    return (unicode_val >= 0x0800 and unicode_val <= 0x4e00)

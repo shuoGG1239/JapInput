@@ -16,7 +16,7 @@ class JapInput(QWidget):
 
     def init_data(self):
         jd.init_dict()
-        self.index = 0
+        self.jState = 'hira'  # 'hira' 'kake'
 
     def init_style(self):
         with open('style.qss', 'r', encoding='utf-8') as f:
@@ -28,10 +28,34 @@ class JapInput(QWidget):
 
     @pyqtSlot()
     def on_btnMin_clicked(self):
-        print('min')
+        if self.jState == 'hira':
+            self.switchType('kake')
+            self.jState = 'kake'
+        else:
+            self.switchType('hira')
+            self.jState = 'hira'
         if self.ui.listWidget.count() < 4:
             item = self.ui.listWidget.newItem('10086')
             self.ui.listWidget.addItem(item)
+
+    def switchType(self, jState):
+        if jState == self.jState:
+            return
+        curText = self.ui.lineEdit.text()
+        newText = ''
+        if jState == 'hira':
+            for c in curText:
+                if c in jd.kake_hira_dict:
+                    newText += jd.kake_hira_dict[c]
+                else:
+                    newText += c
+        if jState == 'kake':
+            for c in curText:
+                if c in jd.hira_kake_dict:
+                    newText += jd.hira_kake_dict[c]
+                else:
+                    newText += c
+        self.ui.lineEdit.setText(newText)
 
     @pyqtSlot()
     def on_btnClose_clicked(self):
@@ -53,14 +77,18 @@ class JapInput(QWidget):
         print(123)
 
     @pyqtSlot(str)
-    def on_lineEdit_textChanged(self, text):
-        raw_text = text[self.index:]
+    def on_lineEdit_textEdited(self, text):
+        index = 0
+        for ch, i in zip(text, range(len(text))):
+            if not jd.isJP_word(ch):
+                index = i
+                break
+        raw_text = text[index:]
         if raw_text in jd.jp_dict:
-            if self.index == 0:
+            if index == 0:
                 self.ui.lineEdit.setText(jd.jp_dict[raw_text])
             else:
-                self.ui.lineEdit.setText(text[:self.index] + jd.jp_dict[raw_text])
-            self.index += 1
+                self.ui.lineEdit.setText(text[:index] + jd.jp_dict[raw_text])
 
     def mousePressEvent(self, e):
         if e.button() == Qt.LeftButton:
