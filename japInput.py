@@ -16,9 +16,10 @@ class JapInput(QWidget):
 
     def init_data(self):
         jd.init_dict()
+        self.index = 0
 
     def init_style(self):
-        with open('style.qss', 'r') as f:
+        with open('style.qss', 'r', encoding='utf-8') as f:
             self.setStyleSheet(f.read())
 
     def init_ui_stat(self):
@@ -53,8 +54,13 @@ class JapInput(QWidget):
 
     @pyqtSlot(str)
     def on_lineEdit_textChanged(self, text):
-        if text in jd.jp_dict:
-            self.ui.lineEdit.setText(jd.jp_dict[text])
+        raw_text = text[self.index:]
+        if raw_text in jd.jp_dict:
+            if self.index == 0:
+                self.ui.lineEdit.setText(jd.jp_dict[raw_text])
+            else:
+                self.ui.lineEdit.setText(text[:self.index] + jd.jp_dict[raw_text])
+            self.index += 1
 
     def mousePressEvent(self, e):
         if e.button() == Qt.LeftButton:
