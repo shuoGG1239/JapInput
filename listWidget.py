@@ -6,6 +6,8 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QSize
 class ListWidget(QListWidget):
     sgnAddItem = pyqtSignal(QListWidgetItem)
     sgnClearItem = pyqtSignal()
+    sgnEnterItem = pyqtSignal(QListWidgetItem)
+    sgnTopupItem = pyqtSignal()
 
     def __init__(self, parent):
         super(QListWidget, self).__init__(parent)
@@ -24,5 +26,13 @@ class ListWidget(QListWidget):
         newItem.setText(text)
         return newItem
 
-    def maxItem(self):
-        return 4
+    def addTextItems(self, texts):
+        for t in texts:
+            self.addItem(self.newItem(t))
+
+    def keyPressEvent(self, e):
+        if e.key() == Qt.Key_Return:
+            self.sgnEnterItem.emit(self.currentItem())
+        if e.key() == Qt.Key_Up and self.currentRow() == 0:
+            self.sgnTopupItem.emit()
+        super().keyPressEvent(e)

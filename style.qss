@@ -3,7 +3,7 @@ QWidget{
 }
 
 #widget{
-background: transparent;
+    background: transparent;
 }
 
 
@@ -13,7 +13,7 @@ QLineEdit{
     border-radius:20px;border:3px solid #999999;
     selection-color:#FFFFFF;
     selection-background-color:#33CCCC;
-    font-family: "MS Gothic";
+    font-family: "Yu Gothic UI Bold";
     font-size: 18px;
     padding-left:10px;
 }
@@ -23,3 +23,27 @@ QLineEdit:focus{
 QLineEdit:disabled{
     color:#CCCCCC;
 }
+
+QPushButton {
+    color: #33CCCC;
+    background-color: #ECFEFE;
+    border-radius:10px;
+}
+QPushButton:Hover {
+    color: "white";
+    background-color: #33CCCC;
+}
+QPushButton:Pressed {
+    background-color: #28AAAA;
+}
+
+
+QListWidget::item:selected{
+    color: "white";
+    background:#99e6e6;
+}
+
+QListWidget::item:hover{
+    background:#ebfafa;
+}
+

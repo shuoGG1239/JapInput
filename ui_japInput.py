@@ -19,13 +19,13 @@ class Ui_widget(object):
         self.lineEdit.setGeometry(QtCore.QRect(10, 40, 321, 41))
         self.lineEdit.setObjectName("lineEdit")
         self.listWidget = listWidget.ListWidget(widget)
-        self.listWidget.setGeometry(QtCore.QRect(10, 90, 321, 191))
+        self.listWidget.setGeometry(QtCore.QRect(25, 90, 291, 191))
         self.listWidget.setObjectName("listWidget")
         self.btnMin = QtWidgets.QPushButton(widget)
-        self.btnMin.setGeometry(QtCore.QRect(280, 10, 31, 23))
+        self.btnMin.setGeometry(QtCore.QRect(280, 10, 25, 25))
         self.btnMin.setObjectName("btnMin")
         self.btnClose = QtWidgets.QPushButton(widget)
-        self.btnClose.setGeometry(QtCore.QRect(320, 10, 31, 23))
+        self.btnClose.setGeometry(QtCore.QRect(320, 10, 25, 25))
         self.btnClose.setObjectName("btnClose")
 
         self.retranslateUi(widget)
@@ -34,6 +34,6 @@ class Ui_widget(object):
     def retranslateUi(self, widget):
         _translate = QtCore.QCoreApplication.translate
         widget.setWindowTitle(_translate("widget", "Form"))
-        self.btnMin.setText(_translate("widget", "+"))
+        self.btnMin.setText(_translate("widget", "-"))
         self.btnClose.setText(_translate("widget", "×"))
 
