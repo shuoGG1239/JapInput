@@ -79,6 +79,9 @@ import re
 
 
 def gen_j_dict():
+    """
+    生成假名到罗马音的映射表, 存到jp.data
+    """
     equations = re.findall(r'[^\s]+\s+=\s+\w+', TEXT)
     new_text = ''
     for e in equations:
@@ -88,6 +91,9 @@ def gen_j_dict():
 
 
 def hira_kake_dict():
+    """
+    生成平假名到片假名的映射表, 存到hira_kake.data
+    """
     equations = re.findall(r'\w+\s\w+\s\w+', HIRA_KAKE)
     new_text = ''
     for e in equations:
@@ -96,5 +102,6 @@ def hira_kake_dict():
         f.write(new_text[:-1].encode('utf8'))
 
 
-gen_j_dict()
-hira_kake_dict()
+if __name__ == '__main__':
+    gen_j_dict()
+    hira_kake_dict()

@@ -65,6 +65,7 @@ class JapInput(QWidget):
 
     @pyqtSlot(str)
     def on_lineEdit_textEdited(self, text):
+        # todo 暂时只处理了前面是假名后面是罗马音的情况,而无法处理中间夹杂罗马音的情况
         index = 0
         for ch, i in zip(text, range(len(text))):
             if not jd.isJP_word(ch):
@@ -124,6 +125,12 @@ class JapInput(QWidget):
         return [hint2, hint1]
 
     def doTransfer(self, text, jStat):
+        """
+        假名混杂罗马音的字符串转为假名
+        :param text:
+        :param jStat: hira kake
+        :return: 纯假名 str
+        """
         index = 0
         for ch, i in zip(text, range(len(text))):
             index = i
@@ -136,11 +143,16 @@ class JapInput(QWidget):
             ret = jd.jp_dict[raw_text]
         if index > 0:
             ret = text[:index] + ret
-        if jStat == 'kake':
-            ret = self.doTransferJStat(ret, jStat)
+        ret = self.doTransferJStat(ret, jStat)
         return ret
 
     def doTransferJStat(self, text, jStat):
+        """
+        假名之间的互转
+        :param text:
+        :param jStat: hira kake
+        :return: 纯假名 str
+        """
         newText = str()
         if jStat == 'hira':
             for c in text:
